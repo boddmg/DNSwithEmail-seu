@@ -21,9 +21,9 @@ if __name__ == '__main__':
       
     try:
         for i in range(emailMsgNum):
-            for piece in emailServer.retr(i+1)[1]:  
+            for piece in emailServer.top(emailMsgNum-i,0)[1]:
                 if piece.startswith('Subject: IP:'):
-                    print "IP:"+piece.split('Subject: IP:')[1]
+                    print piece
                     raise getoutofloop()
     except getoutofloop:
         pass
