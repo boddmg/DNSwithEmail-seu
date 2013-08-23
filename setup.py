@@ -9,6 +9,5 @@ options = {"py2exe":
      "bundle_files": 1,
     }
     }
-setup(console=['DnsWithEmail_Getip.py'],options = options)
-setup(console=['DnsWithEmail_Uploader.py'],options = options)
+setup(console=['DnsWithEmail_Getip.py','DnsWithEmail_Uploader.py'],options = options)
 shutil.copyfile("config.ini","dist\config.ini")
