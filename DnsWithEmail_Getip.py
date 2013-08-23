@@ -27,4 +27,5 @@ if __name__ == '__main__':
                     raise getoutofloop()
     except getoutofloop:
         pass
-    emailServer.quit() 
+    emailServer.quit()
+    raw_input("Press Enter to continue......")
