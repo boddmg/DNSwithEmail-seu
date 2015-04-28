@@ -1,5 +1,6 @@
+#!/usr/bin/python
 # -*- coding: cp936 -*-
-import smtplib  
+import smtplib
 import socket
 import email.mime.text
 import sys
@@ -12,13 +13,13 @@ class getoutofloop(Exception): pass
 if __name__ == '__main__':
     [mail_username,mail_password]=share.SetIDFromFile("config.ini")
 
-    emailServer = poplib.POP3('pop3.seu.edu.cn')    
+    emailServer = poplib.POP3('pop3.seu.edu.cn')
     print "Connect the server success!"
-    emailServer.user(mail_username)  
-    emailServer.pass_(mail_password)  
+    emailServer.user(mail_username)
+    emailServer.pass_(mail_password)
 
-    emailMsgNum, emailSize = emailServer.stat()  
-      
+    emailMsgNum, emailSize = emailServer.stat()
+
     try:
         for i in range(emailMsgNum):
             for piece in emailServer.top(emailMsgNum-i,0)[1]:
