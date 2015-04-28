@@ -1,10 +1,14 @@
-import smtplib  
+#!/usr/bin/python
+import smtplib
 import socket
+import subprocess
 import email.mime.text
-import sys
 import time
 import share
-    
+import socket
+import platform
+
+
 def SendEmail(title,context):
     # get mail information
     [mail_username,mail_password]=share.SetIDFromFile("config.ini")
@@ -34,7 +38,7 @@ def SendEmail(title,context):
         smtp.login(mail_username,mail_password)
     except:
         print 'LOGIN ERROR ****'
-    # fill content with MIMEText's object 
+    # fill content with MIMEText's object
     msg = email.mime.text.MIMEText(context)
     msg['From'] = from_addr
     msg['To'] = ';'.join(to_addrs)
@@ -44,11 +48,24 @@ def SendEmail(title,context):
     print 'Send success!'
     smtp.quit()
 
+def get_ip_list():
+    system = platform.system()
+    ip_list = []
+    if system == "Linux":
+        ip_str = subprocess.Popen("ifconfig", stdout=subprocess.PIPE).stdout.read()
+        ip_str = ip_str.split()
+        for i in ip_str:
+            if i.find("addr:") != -1:
+                ip_list.append(i[5:])
+    else:
+        ip_list = map(lambda i:i[2], socket.gethostbyname_ex(socket.gethostname()))
+    return ip_list
+
 def getip():
     rightIP = ''
-    ipList = socket.gethostbyname_ex(socket.gethostname())
-    for i in ipList[2]:
-        if i.find('172.31') != -1 or i.find('121.229') != -1:
+    ip_list = get_ip_list()
+    for i in ip_list:
+        if  i.find('172.31') != -1 or i.find('121.229') != -1 or i.find('223.3') != -1:
            rightIP=i
     return rightIP
 
